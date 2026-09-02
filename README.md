@@ -6,7 +6,7 @@ WSE replaces brute-force long-context scaling with a three-component system: a p
 
 ## The Problem
 
-Expanding LLM context windows to millions of tokens is computationally expensive and unreliable. Attention cost scales linearly with context length (~2P FLOP per token, where P is the number of active parameters), while retrieval accuracy degrades due to the well-documented "lost in the middle" phenomenon. Paying more for worse results is not a scalable solution.
+Expanding LLM context windows to millions of tokens is computationally expensive and unreliable. Attention cost scales linearly with context length (processing each additional token through a dense-equivalent model incurs roughly 2P FLOP in parameter-matrix compute alone, before sequence-length-dependent attention overhead), while retrieval accuracy degrades due to the well-documented "lost in the middle" phenomenon. Paying more for worse results is not a scalable solution.
 
 ## The Idea
 
@@ -56,7 +56,7 @@ This is an architectural proposal at the concept stage. No implementation exists
 
 ## Development and Attribution
 
-WSE was conceived and developed by **Alexey** ([@username](link)) through a series of collaborative sessions with AI systems used as intellectual sparring partners:
+WSE was conceived and developed by **Alexey Ketslakh** ([fangorn222@gmail.com](link)) through a series of collaborative sessions with AI systems used as intellectual sparring partners:
 
 - **Core concept** — Alexey: the principle of SLM-based parallel fact extraction into a structured external store with deterministic retrieval; entity-centric data model with temporal layers; LLM-owned ontology; the reframing of cold retrieval from primary context source to provenance-addressed archive; event sourcing for delta chains; provenance as a first-class citizen; the computational cost argument (attention-based search vs. indexed access)
 - **ChatGPT** (OpenAI, v5.3) — contributed the two-pass extractor architecture (extract → verify) and the multi-stage ingestion pipeline design (novelty checking, plausibility validation, contradiction detection layers)
